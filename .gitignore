@@ -1,5 +1,4 @@
 target/
 .metals/
 .bloop/
-!.envrc
 *.hnir
