@@ -11,7 +11,7 @@ mkShell {
 
     # pkgs.llvmPackages.libcxxClang
     # pkgs.llvmPackages.clang
-    # # pkgs.glibc
+    glibc
     # pkgs.llvmPackages.libcxxStdenv
 
     # keep this line if you use bash
