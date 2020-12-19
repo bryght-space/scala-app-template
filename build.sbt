@@ -1,19 +1,11 @@
-import sbt.dsl.LinterLevel.Ignore
-import scala.sys.process._
-import java.nio.file.{ Files, Path }
-import sbt.nio._
-import sbt.nio.Keys._
 
 name := "kak-idris"
 
 scalaVersion := "2.11.12"
 
-// Set to false or remove if you want to show stubs as linking errors
-nativeLinkStubs := true
+enablePlugins(NativeImagePlugin)
 
-enablePlugins(ScalaNativePlugin)
-
-nativeLinkingOptions += "-lm"
+Compile / mainClass := Some("kak.idris.Main")
 
 // libraryDependencies += "com.lihaoyi" %%% "fastparse" % "2.2.4"
 

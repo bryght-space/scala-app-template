@@ -7,50 +7,22 @@ on:
       - '*'
 
 jobs:
-  build-mac-linux:
+  build:
 
     runs-on: ${{ matrix.os }}
     strategy:
       matrix:
-        os: [macos-latest, ubuntu-latest]
+        os: [macos-latest, ubuntu-latest, windows-latest]
 
     steps:
 
-    - name: Install LLVM and Clang
-      uses: KyleMayes/install-llvm-action@v1
-      with:
-        version: "10.0"
-        directory: ${{ runner.temp }}/llvm
-
+    - name: Configure git
+      run: "git config --global core.autocrlf false"
+      shell: bash
+    - uses: ilammy/msvc-dev-cmd@v1
     - name: Checkout
       uses: actions/checkout@v2
     - uses: olafurpg/setup-scala@v10
     - name: Test
-      run: sbt compile test
-
-  # scala-native doesn't support windows yet
-  # build-windows:
-
-  #   runs-on: ${{ matrix.os }}
-  #   strategy:
-  #     matrix:
-  #       os: [windows-latest]
-
-  #   # Steps represent a sequence of tasks that will be executed as part of the job
-  #   steps:
-
-  #   - name: Install LLVM and Clang
-  #     uses: KyleMayes/install-llvm-action@v1
-  #     with:
-  #       version: "10.0"
-  #       directory: ${{ runner.temp }}/llvm
-
-  #   - name: Configure git
-  #     run: "git config --global core.autocrlf false"
-  #     shell: bash
-  #   - name: Checkout
-  #     uses: actions/checkout@v2
-  #   - uses: olafurpg/setup-scala@v10
-  #   - name: Test
-  #     shell: bash
-  #     run: sbt compile test
+      shell: bash
+      run: sbt compile test nativeImage
