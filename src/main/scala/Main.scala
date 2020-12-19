@@ -1,7 +1,8 @@
 package kak.idris
 
-object Main extends App {
+object Main  {
 
-  println("Hello Idris")
+  def main(args: Array[String]): Unit =
+    println("Hello Idris")
 
 }

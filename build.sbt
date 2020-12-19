@@ -13,6 +13,8 @@ nativeLinkStubs := true
 
 enablePlugins(ScalaNativePlugin)
 
+nativeLinkingOptions += "-lm"
+
 // libraryDependencies += "com.lihaoyi" %%% "fastparse" % "2.2.4"
 
 
