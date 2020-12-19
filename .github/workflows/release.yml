@@ -1,0 +1,44 @@
+name: Publish
+
+on:
+  push:
+    tags:
+      - '[0-9]+.[0-9]+.[0-9]+'
+
+jobs:
+
+  publish-github:
+    name: Publish to GitHub release for ${{ matrix.os }}
+    runs-on: ${{ matrix.os }}
+    strategy:
+      matrix:
+        include:
+          - os: ubuntu-latest
+            artifact_name: kak-idris
+            asset_name: kak-idris-linux-amd64
+          - os: windows-latest
+            artifact_name: kak-idris.exe
+            asset_name: kak-idris-windows-amd64.exe
+          - os: macos-latest
+            artifact_name: kak-idris
+            asset_name: kak-idris-macos-amd64
+
+    steps:
+    - name: Configure git
+      run: "git config --global core.autocrlf false"
+      shell: bash
+    - uses: ilammy/msvc-dev-cmd@v1
+    - uses: olafurpg/setup-scala@v10
+    - name: Checkout
+      uses: actions/checkout@v2
+    - name: Build release
+      shell: bash
+      run: sbt nativeImage
+    - name: Upload binaries to release
+      uses: svenstaro/upload-release-action@v2
+      with:
+        repo_token: ${{ secrets.GITHUB_TOKEN }}
+        file: target/native-image/${{ matrix.artifact_name }}
+        asset_name: ${{ matrix.asset_name }}
+        tag: ${{ github.ref }}
+
