@@ -33,6 +33,7 @@ lazy val root =
          runTest,                                // : ReleaseStep
          setReleaseVersion,                      // : ReleaseStep
          ReleasePlugin.autoImport.releaseStepInputTask(MdocPlugin.autoImport.mdoc in docs),
+         ReleasePlugin.autoImport.releaseStepCommand("git add ."),
          commitReleaseVersion,                   // : ReleaseStep, performs the initial git checks
          tagRelease,                             // : ReleaseStep
          setNextVersion,                         // : ReleaseStep
