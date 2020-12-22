@@ -26,3 +26,29 @@ jobs:
     - name: Test
       shell: bash
       run: sbt compile test nativeImage
+
+  document:
+
+    runs-on: ubuntu-latest
+    if: ${{ github.ref == 'refs/heads/main' }}
+
+    steps:
+
+    - name: Checkout
+      uses: actions/checkout@v2
+    - uses: olafurpg/setup-scala@v10
+    - name: Prepare snapshot documentation branch
+      run: "git checkout -B snapshot-docs && git reset --hard main"
+    - name: Generate docs
+      run: sbt "docs/mdoc"
+    - name: Commit the new docs
+      run: |
+        git config --local user.email "${{ github.event.pusher.email }}"
+        git config --local user.name "${{ github.event.pusher.name }}"
+        git add . && git commit -m "Generate snapshot docs" #&& git push --force
+    - name: Push changes
+      uses: ad-m/github-push-action@master
+      with:
+        github_token: ${{ secrets.GITHUB_TOKEN }}
+        branch: snapshot-docs
+        force: true
