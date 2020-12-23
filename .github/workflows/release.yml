@@ -14,14 +14,14 @@ jobs:
       matrix:
         include:
           - os: ubuntu-latest
-            artifact_name: kak-idris
-            asset_name: kak-idris-linux-amd64
+            artifact_name: scala-app-template
+            asset_name: scala-app-template-linux-amd64
           - os: windows-latest
-            artifact_name: kak-idris.exe
-            asset_name: kak-idris-windows-amd64.exe
+            artifact_name: scala-app-template.exe
+            asset_name: scala-app-template-windows-amd64.exe
           - os: macos-latest
-            artifact_name: kak-idris
-            asset_name: kak-idris-macos-amd64
+            artifact_name: scala-app-template
+            asset_name: scala-app-template-macos-amd64
 
     steps:
     - name: Configure git
