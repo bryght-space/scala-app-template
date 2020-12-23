@@ -56,6 +56,7 @@ lazy val docs =
     .settings(
        skip in publish := true,
        mdocOut := (ThisBuild / baseDirectory).value,
+       mdocExtraArguments ++= Seq("--in", "docs/LICENSE"),
        mdocVariables := Map(
          "VERSION" -> version.value,
          "NAME" -> (name.in(root)).value,

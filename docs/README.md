@@ -1,7 +1,5 @@
 # scala-app-template
 
-https://nixos.wiki/wiki/Packaging/Binaries
-
 ```
 cs launch @GROUP@::@NAME@:@VERSION@
 ```
