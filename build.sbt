@@ -56,16 +56,15 @@ lazy val docs =
     .settings(
        skip in publish := true,
        mdocOut := (ThisBuild / baseDirectory).value,
-       mdocExtraArguments ++= Seq("--in", "docs/LICENSE"),
        mdocVariables := Map(
          "VERSION" -> version.value,
          "NAME" -> (name.in(root)).value,
          "GROUP" -> (organization.in(root)).value,
          "YEAR" -> {
-           val initialYear = 2020
+           val initialYear = "2020"
            val currentYear = java.time.Year.now.getValue().toString
 
-           if (initialYear == currentYear) initialYear.toString
+           if (initialYear == currentYear) initialYear
            else s"$initialYear-$currentYear"
          },
          "COPYRIGHT_HOLDER" -> "Marc Esquerra <esquerra@bryghts.com>"
