@@ -1,9 +1,9 @@
-package kak.idris
+package com.bryghts.apptemplate
 
 
 object Main:
 
   def main(args: Array[String]): Unit =
-    println("Hello Idris")
+    println("Hello from an Scala app")
 
 

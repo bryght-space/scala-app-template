@@ -1,7 +1,12 @@
 import ReleaseTransformations._
 
+val domain = "com.bryghts"
+val projectName = "apptemplate"
+val group = s"$domain.$projectName"
 
-lazy val root =
+organization in ThisBuild := group
+
+lazy val root: Project =
   project
     .in(file("."))
     .enablePlugins(NativeImagePlugin)
@@ -9,10 +14,10 @@ lazy val root =
 
        scalaVersion := "3.0.0-M3"
 
-     , name := "kak-idris"
+     , name := "scala-app-template"
 
 
-     , Compile / mainClass := Some("kak.idris.Main")
+     , Compile / mainClass := Some(s"$group.Main")
 
      // , libraryDependencies += "com.lihaoyi" %%% "fastparse" % "2.2.4"
 
@@ -51,7 +56,9 @@ lazy val docs =
        skip in publish := true,
        mdocOut := (ThisBuild / baseDirectory).value,
        mdocVariables := Map(
-         "VERSION" -> version.value
+         "VERSION" -> version.value,
+         "NAME" -> (name.in(root)).value,
+         "GROUP" -> (organization.in(root)).value,
        )
     )
     .enablePlugins(MdocPlugin)
