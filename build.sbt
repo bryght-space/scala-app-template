@@ -46,6 +46,7 @@ lazy val root: Project =
          pushChanges                             // : ReleaseStep, also checks that an upstream branch is properly configured
        )
 
+     , publishTo := sonatypePublishToBundle.value
     )
 
 lazy val docs =
@@ -59,6 +60,14 @@ lazy val docs =
          "VERSION" -> version.value,
          "NAME" -> (name.in(root)).value,
          "GROUP" -> (organization.in(root)).value,
+         "YEAR" -> {
+           val initialYear = 2020
+           val currentYear = java.time.Year.now.getValue().toString
+
+           if (initialYear == currentYear) initialYear.toString
+           else s"$initialYear-$currentYear"
+         },
+         "COPYRIGHT_HOLDER" -> "Marc Esquerra <esquerra@bryghts.com>"
        )
     )
     .enablePlugins(MdocPlugin)
