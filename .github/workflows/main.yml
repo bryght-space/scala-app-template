@@ -42,10 +42,11 @@ jobs:
     - name: Generate docs
       run: sbt "genDocs"
     - name: Commit the new docs
+      shell: bash
       run: |
         git config --local user.email "${{ github.event.pusher.email }}"
         git config --local user.name "${{ github.event.pusher.name }}"
-        git add . && git commit -m "Generate snapshot docs" #&& git push --force
+        (git add . && git commit -m "Generate snapshot docs") || true
     - name: Push changes
       uses: ad-m/github-push-action@master
       with:

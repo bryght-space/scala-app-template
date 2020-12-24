@@ -81,7 +81,10 @@ lazy val docs =
     .settings(
        skip in publish := true,
        mdocOut := (ThisBuild / baseDirectory).value,
-       mdocExtraArguments ++= Seq("--markdown-extensions", "_no_ext_"),
+       mdocExtraArguments ++= Seq(
+         "--markdown-extensions", "md",
+         "--markdown-extensions", "_no_ext_"
+       ),
        mdocVariables := Map(
          "VERSION" -> version.value,
          "NAME" -> (name.in(root)).value,
