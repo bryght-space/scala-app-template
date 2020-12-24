@@ -37,7 +37,7 @@ lazy val root: Project =
          runClean,                               // : ReleaseStep
          runTest,                                // : ReleaseStep
          setReleaseVersion,                      // : ReleaseStep
-         ReleasePlugin.autoImport.releaseStepInputTask(MdocPlugin.autoImport.mdoc in docs),
+         ReleasePlugin.autoImport.releaseStepTask(genDocs),
          ReleasePlugin.autoImport.releaseStepCommand("git add ."),
          commitReleaseVersion,                   // : ReleaseStep, performs the initial git checks
          tagRelease,                             // : ReleaseStep
