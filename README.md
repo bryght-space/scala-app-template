@@ -1,7 +1,7 @@
 # scala-app-template
 
 ```
-cs launch @GROUP@::@NAME@:@VERSION@
+cs launch com.bryghts.apptemplate::scala-app-template:0.0.9
 ```
 
 You can find the snapshot version of this README and the rest in [here](https://github.com/marcesquerra/scala-app-template/tree/snapshot-docs)
