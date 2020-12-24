@@ -49,6 +49,31 @@ lazy val root: Project =
      , publishTo := sonatypePublishToBundle.value
     )
 
+import java.nio.file.Path
+def files(root: Path): Iterator[Path] = {
+  import java.nio.file.Files
+  import scala.collection.JavaConverters._
+  Files.walk(root).iterator().asScala.filter(Files.isRegularFile(_))
+}
+
+val genDocs = taskKey[Unit]("Generates docs, including '*._no_ext_' ones")
+
+genDocs := {
+  val _ = (mdoc.in(docs)).toTask("").value
+  val docsRoot = file("docs").toPath
+  val extension = "._no_ext_"
+  files(docsRoot)
+    .filter(_.toString.endsWith(extension))
+    .map(docsRoot.relativize)
+    .foreach{source =>
+      val targetName = source.toString.reverse.drop(extension.length).reverse
+      val target = file(targetName)
+      target.delete()
+      source.toFile.renameTo(target)
+    }
+}
+
+
 lazy val docs =
   project
     .in(file("documentation"))
@@ -56,6 +81,7 @@ lazy val docs =
     .settings(
        skip in publish := true,
        mdocOut := (ThisBuild / baseDirectory).value,
+       mdocExtraArguments ++= Seq("--markdown-extensions", "_no_ext_"),
        mdocVariables := Map(
          "VERSION" -> version.value,
          "NAME" -> (name.in(root)).value,

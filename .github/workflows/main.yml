@@ -40,7 +40,7 @@ jobs:
     - name: Prepare snapshot documentation branch
       run: "git checkout -B snapshot-docs && git reset --hard main"
     - name: Generate docs
-      run: sbt "docs/mdoc"
+      run: sbt "genDocs"
     - name: Commit the new docs
       run: |
         git config --local user.email "${{ github.event.pusher.email }}"
