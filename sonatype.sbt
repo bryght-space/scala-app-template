@@ -14,16 +14,21 @@ developers := List(
 )
 
 credentials += {
-  val u = scala.util.Properties.envOrNone("SONATYPE_USERNAME")
-  val p = scala.util.Properties.envOrNone("SONATYPE_PASSWORD")
+  import scala.util.Properties.envOrNone
 
-  (u zip p) match {
-    case Some((user, pass)) =>
+  val u = envOrNone("SONATYPE_USERNAME")
+  val p = envOrNone("SONATYPE_PASSWORD")
+
+  (u, p) match {
+    case (Some(user), Some(pass)) =>
       Credentials("Sonatype Nexus Repository Manager",
             "oss.sonatype.org",
             user,
             pass)
-    case None =>
-      throw new MessageOnlyException("Sonatype credentials required")
+    case _ =>
+      Credentials("Sonatype Nexus Repository Manager",
+            "oss.sonatype.org",
+            "<<NOT_SET>>",
+            "<<NOT_SET>>")
   }
 }

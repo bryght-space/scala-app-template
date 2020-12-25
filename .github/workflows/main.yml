@@ -7,7 +7,7 @@ on:
       - '*'
 
 jobs:
-  build:
+  perOS:
 
     runs-on: ${{ matrix.os }}
     strategy:
@@ -27,7 +27,7 @@ jobs:
       shell: bash
       run: sbt compile test nativeImage
 
-  document:
+  once:
 
     runs-on: ubuntu-latest
     if: ${{ github.ref == 'refs/heads/main' }}
@@ -53,3 +53,7 @@ jobs:
         github_token: ${{ secrets.GITHUB_TOKEN }}
         branch: snapshot-docs
         force: true
+    - name: Checkout
+      uses: actions/checkout@v2
+    - name: Publish to maven central
+      run: sbt publishSigned sonatypeBundleRelease
