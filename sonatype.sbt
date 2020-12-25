@@ -12,3 +12,18 @@ sonatypeProjectHosting := Some(GitHubHosting("marcesquerra", "scala-app-template
 developers := List(
   Developer(id="marcesquerra", name="Marc Esquerra", email="esquerra@bryghts.com", url=url("https://github.com/marcesquerra"))
 )
+
+credentials += {
+  val u = scala.util.Properties.envOrNone("SONATYPE_USERNAME")
+  val p = scala.util.Properties.envOrNone("SONATYPE_PASSWORD")
+
+  (u zip p) match {
+    case Some((user, pass)) =>
+      Credentials("Sonatype Nexus Repository Manager",
+            "oss.sonatype.org",
+            user,
+            pass)
+    case None =>
+      throw new MessageOnlyException("Sonatype credentials required")
+  }
+}
