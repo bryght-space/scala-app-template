@@ -13,6 +13,8 @@ developers := List(
   Developer(id="marcesquerra", name="Marc Esquerra", email="esquerra@bryghts.com", url=url("https://github.com/marcesquerra"))
 )
 
+sonatypeProfileName := "com.bryghts"
+
 credentials ++= {
   import scala.util.Properties.envOrNone
 
