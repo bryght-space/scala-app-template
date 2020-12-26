@@ -46,7 +46,13 @@ lazy val root: Project =
          pushChanges                             // : ReleaseStep, also checks that an upstream branch is properly configured
        )
 
-     , publishTo := sonatypePublishToBundle.value
+     , publishTo := Some(
+         if (isSnapshot.value)
+           Opts.resolver.sonatypeSnapshots
+         else
+           Opts.resolver.sonatypeStaging
+       )
+
     )
 
 import java.nio.file.Path
