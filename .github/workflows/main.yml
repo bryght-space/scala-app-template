@@ -60,6 +60,9 @@ jobs:
       run: |
         cat <(echo -e "${{ secrets.MAVEN_CENTRAL_GPG_PRIVATE_KEY_B64 }}") | base64 --decode | gpg --batch --import
         gpg --list-keys
+    - name: Sleep to wait for possible deployments to Maven Central from the release side of things
+      if: ${{ startsWith(github.event.head_commit.message, 'Setting version to ') }}
+      run: sleep 5m
     - name: Publish to maven central
       env:
         MAVEN_CENTRAL_GPG_PRIVATE_KEY_ID: ${{ secrets.MAVEN_CENTRAL_GPG_PRIVATE_KEY_ID }}
