@@ -13,12 +13,12 @@ Global / r2GlobalDocsVariables := Map(
   // "VERSION" -> version.value,
   "NAME" -> (name.in(root)).value,
   "GROUP" -> (organization.in(root)).value,
+  "YEAR" -> r2.copyrightYearRange(2020),
   "COPYRIGHT_HOLDER" -> "Marc Esquerra <esquerra@bryghts.com>"
 )
 
 
 
-@r2.root
 lazy val root: Project =
   project
     .in(file("."))
