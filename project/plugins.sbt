@@ -1,11 +1,8 @@
 
 addSbtPlugin("org.scalameta" % "sbt-native-image" % "0.2.2")
-addSbtPlugin("ch.epfl.lamp" % "sbt-dotty" % "0.5.0")
-addSbtPlugin("com.github.gseitz" % "sbt-release" % "1.0.13")
-addSbtPlugin("org.scalameta" % "sbt-mdoc" % "2.2.14")
+addSbtPlugin("ch.epfl.lamp" % "sbt-dotty" % "0.5.1")
 
-addSbtPlugin("com.typesafe.sbt" % "sbt-git" % "1.0.0")
+addSbtPlugin("com.bryghts" % "r2bot" % "0.0.6")
 
-
-addSbtPlugin("org.xerial.sbt" % "sbt-sonatype" % "3.9.5")
-addSbtPlugin("com.jsuereth" % "sbt-pgp" % "2.1.1")
+resolvers += Resolver.sonatypeRepo("releases")
+addCompilerPlugin("org.scalamacros" % "paradise" % "2.1.1" cross CrossVersion.full)
