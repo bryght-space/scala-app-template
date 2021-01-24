@@ -56,6 +56,8 @@ jobs:
         gpg --list-keys
     - name: Publish to maven central
       env:
+        BINTRAY_USER: ${{ secrets.BINTRAY_USER }}
+        BINTRAY_PASS: ${{ secrets.BINTRAY_PASS }}
         MAVEN_CENTRAL_GPG_PRIVATE_KEY_ID: ${{ secrets.MAVEN_CENTRAL_GPG_PRIVATE_KEY_ID }}
         SONATYPE_USERNAME: ${{ secrets.SONATYPE_USERNAME }}
         SONATYPE_PASSWORD: ${{ secrets.SONATYPE_PASSWORD }}
