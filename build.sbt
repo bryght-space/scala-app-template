@@ -1,4 +1,5 @@
 import ReleaseTransformations._
+import com.bryghts.r2bot.caps.bintray.R2BintrayOwner
 
 val domain = "com.bryghts"
 val projectName = "apptemplate"
@@ -9,7 +10,7 @@ organization in ThisBuild := group
 val theScalaVersion = "3.0.0-M3"
 // val theScalaVersion = "2.13.4"
 
-Global / r2GlobalDocsVariables := Map(
+Global / r2GDocsVariables := Map(
   // "VERSION" -> version.value,
   "NAME" -> (name.in(root)).value,
   "GROUP" -> (organization.in(root)).value,
@@ -22,8 +23,15 @@ Global / r2GlobalDocsVariables := Map(
 lazy val root: Project =
   project
     .in(file("."))
-    .enablePlugins(NativeImagePlugin)
     .r2Root
+    .withCapabilities(
+       caps.Bintray
+     )
+    .enablePlugins(NativeImagePlugin)
+    .settings (
+      r2BintrayOwner := R2BintrayOwner.R2BintrayOrganization("bryghts"),
+      r2BintrayRepository := "bryght.space"
+     )
     .settings(
 
        scalaVersion := theScalaVersion
