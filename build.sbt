@@ -22,6 +22,9 @@ Global / r2GDocsVariables := Map(
 val r2SonatypePublishTo =
   taskKey[Option[Resolver]]("Configures where to publish to, when publishing to sonatype/maven central")
 
+val r2SonatypeDoRelease =
+  taskKey[Unit]("Pushes the project to maven central")
+
 r2SonatypePublishTo := Some(
   if (isSnapshot.value)
     Opts.resolver.sonatypeSnapshots
@@ -29,18 +32,24 @@ r2SonatypePublishTo := Some(
     Opts.resolver.sonatypeStaging
 )
 
+r2SonatypeDoRelease := {
+  if (isSnapshot.value)
+    ()
+  else
+    Command.process("sonatypeRelease", state.value)
+}
+
+
 addCommandAlias(
   "r2SonatypeDoPublish",
-  ";set publishTo := r2SonatypePublishTo.value;publishSigned;sonatypeRelease")
+  ";set publishTo := r2SonatypePublishTo.value;publishSigned;r2SonatypeDoRelease")
 
 lazy val root: Project =
   project
     .in(file("."))
     .r2Root
-    .withCapabilities(
-       caps.Bintray
-     )
-    .enablePlugins(NativeImagePlugin)
+    .withCapabilities( caps.Bintray )
+    .enablePlugins( NativeImagePlugin )
     .settings (
       r2BintrayOwner := R2BintrayOwner.R2BintrayOrganization("bryghts"),
       r2BintrayRepository := "bryght.space"
