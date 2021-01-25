@@ -60,8 +60,8 @@ jobs:
         SONATYPE_USERNAME: ${{ secrets.SONATYPE_USERNAME }}
         SONATYPE_PASSWORD: ${{ secrets.SONATYPE_PASSWORD }}
         PGP_PASSPHRASE: ${{ secrets.MAVEN_CENTRAL_GPG_PASSWORD }}
-      run: sbt publish publishSigned sonatypeRelease
-    - name: Publish to maven central
+      run: sbt publishSigned sonatypeRelease
+    - name: Publish to bintray
       env:
         BINTRAY_USER: ${{ secrets.BINTRAY_USER }}
         BINTRAY_PASS: ${{ secrets.BINTRAY_PASS }}
