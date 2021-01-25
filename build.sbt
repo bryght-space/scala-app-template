@@ -1,5 +1,6 @@
 import ReleaseTransformations._
 import com.bryghts.r2bot.caps.bintray.R2BintrayOwner
+import sbt.librarymanagement.Resolver
 
 val domain = "com.bryghts"
 val projectName = "apptemplate"
@@ -17,6 +18,20 @@ Global / r2GDocsVariables := Map(
   "YEAR" -> r2.copyrightYearRange(2020),
   "COPYRIGHT_HOLDER" -> "Marc Esquerra <esquerra@bryghts.com>"
 )
+
+val r2SonatypePublishTo =
+  taskKey[Option[Resolver]]("Configures where to publish to, when publishing to sonatype/maven central")
+
+r2SonatypePublishTo := Some(
+  if (isSnapshot.value)
+    Opts.resolver.sonatypeSnapshots
+  else
+    Opts.resolver.sonatypeStaging
+)
+
+addCommandAlias(
+  "r2SonatypeDoPublish",
+  ";set publishTo := r2SonatypePublishTo.value;publishSigned;sonatypeRelease")
 
 lazy val root: Project =
   project
