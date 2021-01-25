@@ -18,8 +18,6 @@ Global / r2GDocsVariables := Map(
   "COPYRIGHT_HOLDER" -> "Marc Esquerra <esquerra@bryghts.com>"
 )
 
-
-
 lazy val root: Project =
   project
     .in(file("."))
