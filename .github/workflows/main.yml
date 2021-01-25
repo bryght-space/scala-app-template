@@ -40,7 +40,7 @@ jobs:
     - name: Prepare snapshot documentation branch
       run: "git checkout -B snapshot-docs && git reset --hard main"
     - name: Generate docs
-      run: sbt "genDocs"
+      run: sbt "r2GDocsDoGenDocs"
     - name: Commit the new docs
       shell: bash
       run: |
